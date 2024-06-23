@@ -1,0 +1,40 @@
+check python versions installed 
+
+pyenv versions
+
+
+Step 1. pyenv local 3.9.18
+
+Step 2. python -m venv virtualenv
+
+Step 3. source virtualenv/bin/activate
+
+Step 4. pip install -r requirements.txt
+
+Step 5. python run.py
+
+pip install psycopg2-binary
+
+
+
+"""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+Volumn - how i will know buy and sell qty
+track increase volumn and price
+
+technical analysis
+
+rsi - > 55 and less than 70
+market cap > 1000 cr (Total amount dopsit of stock)
+52 week high
+
+NIFTY 500 Multi CAP
+
+############## FIRST PHASE IN DEVELOPMENT ##############
+AI- openAI - GPT3
+news about company related quatarly result 
+promotor holding > 55
+fll increase
+dll increase
+""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""

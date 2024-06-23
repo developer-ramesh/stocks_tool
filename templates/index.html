@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Details</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <h2>Rocket Stocks ({{ stocks|length }})</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>S.N</th>
+                    <th>Stock Name</th>
+                    <th>Promoters</th>
+                    <th>FIIs</th>
+                    <th>DIIs</th>
+                    <th>Government</th>
+                    <th>Public</th>
+                    <th>No. of Shareholders</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                <tr>
+                    <td>{{ loop.index }}.</td>
+                    <td>{{ stock[0] }}<br>(<span class="symbol">{{ stock[1] }}</span>)</td>
+                    <td>{{ stock[2] }}%</td>
+                    <td>{{ stock[3] }}%</td>
+                    <td>{{ stock[4] }}%</td>
+                    <td>{% if stock[5] %} {{ stock[5] }} {% endif %}</td>
+                    <td>{{ stock[6] }}%</td>
+                    <td>{{ '{:,.0f}'.format(stock[7]) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="right">
+        <h2>Latest News</h2>
+        <div class="news">
+            {% for new in news %}
+            <p><strong style="color: #6565c5;">{{ new[2] }}</strong> <br>    {{ new[3]|replace('\n', '<br>')|safe }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
