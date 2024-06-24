@@ -77,18 +77,32 @@ def update_stocks():
         additional_data = get_additional_data(symbol)
         print(f'Fetched data for : {symbol}')
         
+        # stock_data.append({
+        #     'Company_Name': row['Company Name'],
+        #     'Industry': row['Industry'],
+        #     'Symbol': symbol,
+        #     'Price': closing_price,
+        #     'Market_Cap': Decimal(additional_data.get('Market Cap', 0)).quantize(Decimal('0.00')),
+        #     'Promoters_Holdings': Decimal(additional_data.get('Promoters', 0)).quantize(Decimal('0.00')),
+        #     'DLL': Decimal(additional_data.get('DIIs', 0)).quantize(Decimal('0.00')),
+        #     'FLL': Decimal(additional_data.get('FIIs', 0)).quantize(Decimal('0.00')),
+        #     'Government': Decimal(additional_data.get('Government', 0)).quantize(Decimal('0.00')),
+        #     'Public': Decimal(additional_data.get('Public', 0)).quantize(Decimal('0.00')),
+        #     'No_of_Shares': Decimal(additional_data.get('No. of Shareholders', 0)).quantize(Decimal('0.00')),
+        # })
+
         stock_data.append({
-            'Company Name': row['Company Name'],
+            'Company_Name': row['Company Name'],
             'Industry': row['Industry'],
             'Symbol': symbol,
             'Price': closing_price,
-            'Market Cap': Decimal(additional_data.get('Market Cap', 0)).quantize(Decimal('0.00')),
-            'Promoters Holdings': Decimal(additional_data.get('Promoters', 0)).quantize(Decimal('0.00')),
-            'DLL': Decimal(additional_data.get('DIIs', 0)).quantize(Decimal('0.00')),
-            'FLL': Decimal(additional_data.get('FIIs', 0)).quantize(Decimal('0.00')),
-            'Government': Decimal(additional_data.get('Government', 0)).quantize(Decimal('0.00')),
-            'Public': Decimal(additional_data.get('Public', 0)).quantize(Decimal('0.00')),
-            'No of Shares': Decimal(additional_data.get('No. of Shareholders', 0)).quantize(Decimal('0.00')),
+            'Market_Cap': float(additional_data.get('Market Cap', 0)),
+            'Promoters_Holdings': float(additional_data.get('Promoters', 0)),
+            'DLL': float(additional_data.get('DIIs', 0)),
+            'FLL': float(additional_data.get('FIIs', 0)),
+            'Government': float(additional_data.get('Government', 0)),
+            'Public': float(additional_data.get('Public', 0)),
+            'No_of_Shares': float(additional_data.get('No. of Shareholders', 0)),
         })
 
         time.sleep(5)  # Sleep for 5 seconds

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Details</title>
+    <title>Ramesh::Stock Details::</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -36,6 +36,12 @@
                     <td>{{ '{:,.0f}'.format(stock[7]) }}</td>
                 </tr>
                 {% endfor %}
+
+                {% if not stocks %}
+                <tr>
+                    <td colspan="8" style="color: red;"><br><br>No stock found yet, will notify you by email once pick from our analysis.</td>
+                </tr>
+                {% endif %}
             </tbody>
         </table>
     </div>
