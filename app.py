@@ -5,7 +5,7 @@ from datetime import datetime
 from nselib import capital_market
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
-import db
+#import db
 from decimal import Decimal
 
 
@@ -14,9 +14,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    stocks = db.get_all_stocks()
-    news = db.get_all_news()
-    return render_template('index.html', stocks=stocks, news=news)
+    #stocks = db.get_all_stocks()
+    #news = db.get_all_news()
+    return render_template('index.html', stocks='', news='')
 
 def get_additional_data(symbol):
     link = f'https://www.screener.in/company/{symbol}'
