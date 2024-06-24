@@ -27,7 +27,7 @@
                 {% for stock in stocks %}
                 <tr>
                     <td>{{ loop.index }}.</td>
-                    <td>{{ stock[0] }}<br>(<span class="symbol">{{ stock[1] }}</span>)</td>
+                    <td>{{ stock[0] }}<br><span class="symbol">{{ stock[1] }}</span></td>
                     <td>{{ stock[2] }}%</td>
                     <td>{{ stock[3] }}%</td>
                     <td>{{ stock[4] }}%</td>
@@ -43,7 +43,7 @@
         <h2>Latest News</h2>
         <div class="news">
             {% for new in news %}
-            <p><strong style="color: #6565c5;">{{ new[2] }}</strong> <br>    {{ new[3]|replace('\n', '<br>')|safe }}</p>
+            <p><strong style="color: #6565c5;">{{ new[2] }}</strong> <br> {{ new[3]|replace('\n', '<br>')|safe }}</p>
             {% endfor %}
         </div>
     </div>

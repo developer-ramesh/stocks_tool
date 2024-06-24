@@ -2,6 +2,7 @@ import psycopg2
 from psycopg2 import sql
 from datetime import datetime
 from decimal import Decimal
+from mail_sender import send_email
 
 
 # Database connection setup
@@ -120,57 +121,57 @@ def insert_stock_data(stock_data):
             if stock['Market Cap'] is not None and existing_market_cap is not None:
                 if stock['Market Cap'] != existing_market_cap:
                     if stock['Market Cap'] < existing_market_cap:
-                        message_parts.append(f"Market Cap value decreased, Prev: {existing_market_cap:.0f} Last: {stock['Market Cap']:.0f}")
+                        message_parts.append(f"Market Cap value <span class='bear'>decreased</span>, Prev: {existing_market_cap:.0f} Last: {stock['Market Cap']:.0f}")
                     else:
-                        message_parts.append(f"Market Cap value increased, Prev: {existing_market_cap:.0f} Last: {stock['Market Cap']:.0f}")
+                        message_parts.append(f"Market Cap value <span class='bull'>increased</span>, Prev: {existing_market_cap:.0f} Last: {stock['Market Cap']:.0f}")
                         is_visible = True
 
             if stock['Promoters Holdings'] is not None and existing_promoters_holdings is not None:
                 if stock['Promoters Holdings'] != existing_promoters_holdings:
                     if stock['Promoters Holdings'] < existing_promoters_holdings:
-                        message_parts.append("Promoters holdings decreased, Prev: " + str(existing_promoters_holdings) + " Last: " + str(stock['Promoters Holdings']) )
+                        message_parts.append("Promoters holdings <span class='bear'>decreased</span>, Prev: " + str(existing_promoters_holdings) + " Last: " + str(stock['Promoters Holdings']) )
                     else:
-                        message_parts.append("Promoters holdings increased, Prev: " + str(existing_promoters_holdings) + " Last: " + str(stock['Promoters Holdings']) )
+                        message_parts.append("Promoters holdings <span class='bull'>increased</span>, Prev: " + str(existing_promoters_holdings) + " Last: " + str(stock['Promoters Holdings']) )
                         is_visible = True
 
             if stock['DLL'] is not None and existing_dll is not None:
                 if stock['DLL'] != existing_dll:
                     if stock['DLL'] < existing_dll:
-                        message_parts.append("DLL holding decreased, Prev: " + str(existing_dll) + " Last: " + str(stock['DLL']) )
+                        message_parts.append("DLL holding <span class='bear'>decreased</span>, Prev: " + str(existing_dll) + " Last: " + str(stock['DLL']) )
                     else:
-                        message_parts.append("DLL holding increased, Prev: " + str(existing_dll) + " Last: " + str(stock['DLL']) )
+                        message_parts.append("DLL holding <span class='bull'>increased</span>, Prev: " + str(existing_dll) + " Last: " + str(stock['DLL']) )
                         is_visible = True
 
             if stock['FLL'] is not None and existing_fll is not None:
                 if stock['FLL'] != existing_fll:
                     if stock['FLL'] < existing_fll:
-                        message_parts.append("FLL holding decreased, Prev: " + str(existing_fll) + " Last: " + str(stock['FLL']) )
+                        message_parts.append("FLL holding <span class='bear'>decreased</span>, Prev: " + str(existing_fll) + " Last: " + str(stock['FLL']) )
                     else:
-                        message_parts.append("FLL holding increased, Prev: " + str(existing_fll) + " Last: " + str(stock['FLL']) )
+                        message_parts.append("FLL holding <span class='bull'>increased</span>, Prev: " + str(existing_fll) + " Last: " + str(stock['FLL']) )
                         is_visible = True
 
             if stock['Government'] is not None and existing_government is not None:
                 if stock['Government'] != existing_government:
                     if stock['Government'] < existing_government:
-                        message_parts.append("Government holding decreased, Prev: " + str(existing_government) + " Last: " + str(stock['Government']) )
+                        message_parts.append("Government holding <span class='bear'>decreased</span>, Prev: " + str(existing_government) + " Last: " + str(stock['Government']) )
                     else:
-                        message_parts.append("Government holding increased, Prev: " + str(existing_government) + " Last: " + str(stock['Government']) )
+                        message_parts.append("Government holding <span class='bull'>increased</span>, Prev: " + str(existing_government) + " Last: " + str(stock['Government']) )
                         is_visible = True
 
             if stock['Public'] is not None and existing_public is not None:
                 if stock['Public'] != existing_public:
                     if stock['Public'] < existing_public:
-                        message_parts.append("Public holding decreased, Prev: " + str(existing_public) + " Last: " + str(stock['Public']) )
+                        message_parts.append("Public holding <span class='bear'>decreased</span>, Prev: " + str(existing_public) + " Last: " + str(stock['Public']) )
                     else:
-                        message_parts.append("Public holding increased, Prev: " + str(existing_public) + " Last: " + str(stock['Public']) )
+                        message_parts.append("Public holding <span class='bull'>increased</span>, Prev: " + str(existing_public) + " Last: " + str(stock['Public']) )
                         is_visible = True
 
             if stock['No of Shares'] is not None and existing_no_of_shares is not None:
                 if stock['No of Shares'] != existing_no_of_shares:
                     if stock['No of Shares'] < existing_no_of_shares:
-                        message_parts.append("No of Shareholders decreased, Prev: " + str(existing_no_of_shares) + " Last: " + str(stock['No of Shares']) )
+                        message_parts.append("No of Shareholders <span class='bear'>decreased</span>, Prev: " + str(existing_no_of_shares) + " Last: " + str(stock['No of Shares']) )
                     else:
-                        message_parts.append("No of Shareholders increased, Prev: " + str(existing_no_of_shares) + " Last: " + str(stock['No of Shares']) )
+                        message_parts.append("No of Shareholders <span class='bull'>increased</span>, Prev: " + str(existing_no_of_shares) + " Last: " + str(stock['No of Shares']) )
                         is_visible = True
 
             if message_parts:
@@ -198,6 +199,8 @@ def insert_stock_data(stock_data):
     cur.close()
     conn.close()
 
+    result = send_email('ramesh@capsquery.com', 'Hello..')
+    print(result)
     return inserted_records_count, updated_records_count
 
 def get_all_stocks():
@@ -212,7 +215,7 @@ def get_all_stocks():
 def get_all_news():
     conn = connect_db()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM news order by id desc;")
+    cur.execute("SELECT * FROM news order by id desc limit 50;")
     news = cur.fetchall()
     cur.close()
     conn.close()

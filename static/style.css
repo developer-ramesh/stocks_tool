@@ -33,7 +33,6 @@ tr:nth-child(even) {
 }
 tr:hover {
     background-color: #bdd9f8;
-    cursor:pointer;
 }
 .news {
     background-color: #f9f9f9;
@@ -53,4 +52,10 @@ tr:hover {
     font-size: 14px;
     font-weight: bold;
     color: #6565c5;
+}
+.bear{
+    color: red;
+}
+.bull{
+    color: green;
 }

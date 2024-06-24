@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
 import db
 from decimal import Decimal
-from send_mail import send_email
 
 
 
@@ -17,8 +16,6 @@ app = Flask(__name__)
 def home():
     stocks = db.get_all_stocks()
     news = db.get_all_news()
-    result = send_email()
-    print(result)
     return render_template('index.html', stocks=stocks, news=news)
 
 def get_additional_data(symbol):
@@ -103,4 +100,4 @@ def update_stocks():
 
 
 if __name__ == '__main__':
-     app.run(host='0.0.0.0', port=8000)
+     app.run(host='0.0.0.0', port=8000, debug=True)

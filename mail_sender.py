@@ -9,26 +9,29 @@ username = 'arijit@capsquery.com'
 password = 'KP@010823'
 sender_email = 'ramesh@capsquery.com'
 receiver_email = 'info.ramesh.co@gmail.com'
-subject = 'Market Cap Update'
+# receiver_emails = ['info.ramesh.co@gmail.com', 'anandagupta2005@gmail.com']
+subject = 'Stock Market Data Update'
+from_text = 'AI Analysis <no-reply@capsquery.com>'
 
 # Email body
 formatted_message = """\
 Hello,
 
-This is an automated email to notify you that the market cap data has been updated.
+This is an automated email to notify you that the market data has been updated.
 
 Thank you,
 Stock Market Bot
 """
 
-# Create MIME multipart message
-msg = MIMEMultipart()
-msg['From'] = sender_email
-msg['To'] = receiver_email
-msg['Subject'] = subject
-msg.attach(MIMEText(formatted_message, 'plain'))
-
-def send_email():
+def send_email(to_email, message):
+    receiver_email = to_email
+    formatted_message = message
+    msg = MIMEMultipart()
+    msg['From'] = from_text
+    msg['To'] = receiver_email
+    msg['Subject'] = subject
+    msg.attach(MIMEText(formatted_message, 'plain'))
+    
     try:
         print("Attempting to send email...")
         # Check the connection to the SMTP server
