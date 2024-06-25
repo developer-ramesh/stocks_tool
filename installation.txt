@@ -14,7 +14,7 @@ Step 4. pip install -r requirements.txt
 Step 5. python run.py
 
 pip install psycopg2-binary
-
+pip install mysql-connector-python
 
 
 """""""""
