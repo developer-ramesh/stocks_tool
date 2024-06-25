@@ -1,22 +1,13 @@
-from flask import Flask, jsonify, render_template
 import yfinance as yf
 import time
-from datetime import datetime
 from nselib import capital_market
 from bs4 import BeautifulSoup
 from urllib.request import urlopen, Request
 import db
 from decimal import Decimal
+from datetime import datetime
 
-
-
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    stocks = db.get_all_stocks()
-    news = db.get_all_news()
-    return render_template('index.html', stocks=stocks, news=news)
+log_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 def get_additional_data(symbol):
     link = f'https://www.screener.in/company/{symbol}'
@@ -55,12 +46,12 @@ def get_additional_data(symbol):
                 break
 
     except Exception as e:
-        print(f'EXCEPTION THROWN: UNABLE TO FETCH DATA FOR {symbol}')
+        print(f'{log_date} EXCEPTION THROWN: UNABLE TO FETCH DATA FOR {symbol}')
         print(e)
 
     return data
 
-@app.route('/update_stocks', methods=['GET'])
+
 def update_stocks():
     nifty50_list = capital_market.nifty50_equity_list()
     stock_data = []
@@ -75,7 +66,7 @@ def update_stocks():
         closing_price = f"{closing_price:.2f}" # Format to 2 decimal places
         
         additional_data = get_additional_data(symbol)
-        print(f'Fetched data for : {symbol}')
+        print(f'{log_date} Fetched data for : {symbol}')
         
         stock_data.append({
             'Company_Name': row['Company Name'],
@@ -94,10 +85,8 @@ def update_stocks():
         time.sleep(5)  # Sleep for 5 seconds
 
     updated_rows = db.insert_stock_data(stock_data)
-    print(f'Number of inserted records: {updated_rows[0]}, Number of updated records: {updated_rows[1]}')
-    return jsonify({"message": f"Number of inserted stocks: {updated_rows[0]}, Number of updated stocks: {updated_rows[1]}"})
+    print(f'{log_date} Number of inserted records: {updated_rows[0]}, Number of updated records: {updated_rows[1]}')
 
 
-
-if __name__ == '__main__':
-     app.run(host='0.0.0.0', port=8000, debug=True)
+print(f'{log_date} Updating stocks...')
+update_stocks()

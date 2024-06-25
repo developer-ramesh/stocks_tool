@@ -3,14 +3,25 @@ from datetime import datetime
 from decimal import Decimal
 from mail_sender import send_email
 
+log_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 # Database connection setup
 def connect_db():
+    # Remote connection for live server
     return mysql.connector.connect(
         host='sql12.freesqldatabase.com',
         user='sql12715853',
         password='XMD4xPSdG2',
         database='sql12715853'
     )
+    
+    # # Localhost connection
+    # return mysql.connector.connect(
+    #     host='localhost',
+    #     user='root',
+    #     password='password',
+    #     database='stocks'
+    # )
 
 def create_table():
     conn = connect_db()
@@ -93,6 +104,9 @@ def insert_stock_data(stock_data):
     VALUES (%s, %s, %s, %s);
     '''
 
+    delete_news = cur.execute("DELETE from news;")
+    print(f'{log_date} Deleted all news')
+
     inserted_records_count = 0
     updated_records_count = 0
 
@@ -171,25 +185,24 @@ def insert_stock_data(stock_data):
                 description = "\n ".join(message_parts)
                 created_dt = datetime.now()
                 cur.execute(news_insert_query, (stock_id, heading, description, created_dt))
-                print(f'Updated News for : {stock["Symbol"]}')
+                print(f'{log_date} Updated News for : {stock["Symbol"]}')
 
             stock['is_visible'] = is_visible
             cur.execute(insert_query, stock)
             if cur.rowcount:
-                print(f'Updated stock for : {stock["Symbol"]}')
+                print(f'{log_date} Updated stock for : {stock["Symbol"]}')
         else:
             stock['is_visible'] = True
             cur.execute(insert_query, stock)
             if cur.rowcount:
                 inserted_records_count += 1
-                print(f'Inserted stock for : {stock["Symbol"]}')
+                print(f'{log_date} Inserted stock for : {stock["Symbol"]}')
 
     conn.commit()
     cur.close()
     conn.close()
 
-    # result = send_email('ramesh@capsquery.com', 'Hello..')
-    # print(result)
+    send_email()
     return inserted_records_count, updated_records_count
 
 def get_all_stocks():
@@ -204,7 +217,7 @@ def get_all_stocks():
 def get_all_news():
     conn = connect_db()
     cur = conn.cursor()
-    cur.execute("SELECT * FROM news ORDER BY id DESC LIMIT 50;")
+    cur.execute("SELECT * FROM news ORDER BY description DESC LIMIT 50;")
     news = cur.fetchall()
     cur.close()
     conn.close()

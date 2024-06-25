@@ -15,22 +15,25 @@ from_text = 'AI Analysis <no-reply@capsquery.com>'
 
 # Email body
 formatted_message = """\
-Hello,
+Hello,<br><br>
 
-This is an automated email to notify you that the market data has been updated.
+This is an automated email to notify you that the market data has been updated,<br>
+You can now view the latest stocks data on the website, <a href="https://ramesh-cq-stocks.koyeb.app/" target="__blank">Click here</a>.
 
-Thank you,
+<br><br><br>
+Thank you,<br>
 Stock Market Bot
 """
 
-def send_email(to_email, message):
-    receiver_email = to_email
-    formatted_message = message
+def send_email(to_email=None, message=None):
+    to = to_email if to_email is not None else receiver_email
+    body = message if message is not None else formatted_message
+
     msg = MIMEMultipart()
     msg['From'] = from_text
-    msg['To'] = receiver_email
+    msg['To'] = to
     msg['Subject'] = subject
-    msg.attach(MIMEText(formatted_message, 'plain'))
+    msg.attach(MIMEText(body, 'html'))
     
     try:
         print("Attempting to send email...")
@@ -46,7 +49,7 @@ def send_email(to_email, message):
             server = smtplib.SMTP(smtp_server, smtp_port)
             server.starttls()
             server.login(username, password)
-            server.sendmail(sender_email, receiver_email, msg.as_string())
+            server.sendmail(sender_email, to, msg.as_string())
             server.quit()
             return "Email sent successfully!"
         except Exception as e:
