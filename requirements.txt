@@ -3,3 +3,4 @@ yfinance
 nselib
 psycopg2-binary
 gunicorn==20.1.0
+mysql-connector-python
