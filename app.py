@@ -16,7 +16,7 @@ app = Flask(__name__)
 def home():
     stocks = db.get_all_stocks()
     news = db.get_all_news()
-    return render_template('index.html', stocks='', news='')
+    return render_template('index.html', stocks=stocks, news=news)
 
 def get_additional_data(symbol):
     link = f'https://www.screener.in/company/{symbol}'
