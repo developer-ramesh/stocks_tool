@@ -8,11 +8,14 @@ log_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 # Database connection setup
 def connect_db():
     # Remote connection for live server
+    # https://console.aiven.io/account/a4c404e24e9b/admin/organization/overview
     return mysql.connector.connect(
-        host='sql12.freesqldatabase.com',
-        user='sql12715853',
-        password='XMD4xPSdG2',
-        database='sql12715853'
+        host='mysql-d1ae753-rameshcq.e.aivencloud.com',
+        user='avnadmin',
+        password='AVNS_j-4KPNmUlbKlY3Yq7Sg',
+        database='capsqelq_stocks',
+        port=24744,
+        ssl_ca='ca.pem'
     )
     
     # # Localhost connection
