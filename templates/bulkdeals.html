@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramesh::Stock Analysis::</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <ul>
+            <li><a href="/" class="{% if current_page == 'home' %}active{% endif %}">Home</a></li>
+            <li><a href="/bulkdeals" class="{% if current_page == 'bulkdeals' %}active{% endif %}">Bulkdeals and Quarterly result</a></li>
+        </ul>
+    </nav>
+    <div class="main-content">
+        <div class="left">
+            <h2>Bulkdeals</h2> 
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Stock Name</th>
+                            <th>Company</th>
+                            <th>Client</th>
+                            <th>Buy Sell</th>
+                            <th>Quantity</th>
+                            <th>WATP</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stock in bulkdeals %}
+                        <tr>
+                            <td>{{ loop.index }}.</td>
+                            <td>{{ stock[0] }}</td>
+                            <td>{{ stock[1] }}</td>
+                            <td>{{ stock[2] }}</td>
+                            <td>{{ stock[3] }}</td>
+                            <td>{{ stock[4] }}</td>
+                            <td>{{ stock[5] }}</td>
+                            <td>{{ stock[6] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="right">
+            <h2>Quarterly result</h2> 
+            <div class="news">
+                {% for result in results %}
+                <p><strong style="color: #6565c5;">{{ result[0] }}</strong> - {{ result[1] }} <br> <small>{{result[2]}}</small></p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
