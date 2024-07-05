@@ -44,6 +44,12 @@
                             <td>{{ stock[6] }}</td>
                         </tr>
                         {% endfor %}
+
+                        {% if not bulkdeals %}
+                        <tr>
+                            <td colspan="8" style="color: red;"><br><br>No Bulkdeals found recently.</td>
+                        </tr>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
@@ -54,6 +60,10 @@
                 {% for result in results %}
                 <p><strong style="color: #6565c5;">{{ result[0] }}</strong> - {{ result[1] }} <br> <small>{{result[2]}}</small></p>
                 {% endfor %}
+
+                {% if not results %}
+                <p style="color: red;"><br><br>No result found recently, will notify you by email.</p>
+                {% endif %}
             </div>
         </div>
     </div>
