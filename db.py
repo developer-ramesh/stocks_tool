@@ -1,7 +1,6 @@
 import mysql.connector
 from datetime import datetime
 from decimal import Decimal
-from mail_sender import send_email
 
 log_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -131,7 +130,6 @@ def insert_quarterly_results(results_data):
         if cur.rowcount:
             inserted_records_count += 1
             print(f'{log_date} Inserted quarterly result for : {result["symbol"]}')
-            #send_email(['info.ramesh.co@gmail.com', 'anandagupta2005@gmail.com'], f"<p>The quarterly result is published of : <b>{result["symbol"]}</b> the compnay.<p>")
     conn.commit()
     cur.close()
     conn.close()
@@ -310,9 +308,6 @@ def insert_stock_data(stock_data):
     conn.commit()
     cur.close()
     conn.close()
-    now = datetime.now()
-    if (now.strftime('%H:%M') < '10'):
-        send_email()
     return inserted_records_count, updated_records_count
 
 def get_all_stocks():
