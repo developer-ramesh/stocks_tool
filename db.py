@@ -345,7 +345,7 @@ def get_all_bulkdeals():
 def get_quarterly_results():
     conn = connect_db()
     cur = conn.cursor()
-    cur.execute("SELECT symbol, company_name, broadCastDate FROM quarterly_results")
+    cur.execute("SELECT symbol, company_name, broadCastDate FROM quarterly_results ORDER BY id DESC")
     results = cur.fetchall()
     cur.close()
     conn.close()
