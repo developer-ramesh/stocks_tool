@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, render_template
 import db
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -7,7 +8,16 @@ app = Flask(__name__)
 def home():
     stocks = db.get_all_stocks()
     news = db.get_all_news()
-    return render_template('index.html', stocks=stocks, news=news, current_page='home')
+    
+    formatted_stocks = []
+    for stock in stocks:
+        stock_list = list(stock)
+        if isinstance(stock_list[8], datetime):
+            stock_list[8] = stock_list[8].strftime('%d %B %Y, %I:%M %p')
+        formatted_stocks.append(tuple(stock_list))
+    
+    last_updated = news[0][4].strftime('%d %B %Y, %I:%M %p')
+    return render_template('index.html', stocks=formatted_stocks, news=news, last_updated=last_updated, current_page='home')
 
 @app.route('/bulkdeals')
 def bulkdeals():
