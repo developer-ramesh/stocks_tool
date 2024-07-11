@@ -84,9 +84,6 @@ def update_stocks():
 
         time.sleep(5)  # Sleep for 5 seconds
 
-    updated_rows = db.insert_stock_data(stock_data)
-    print(f'{log_date} Number of inserted records: {updated_rows[0]}, Number of updated records: {updated_rows[1]}')
-
 
 print(f'{log_date} Updating stocks...')
 update_stocks()
