@@ -29,7 +29,7 @@
                             <th>Government</th>
                             <th>Public</th>
                             <th>No. of Shareholders</th>
-                            <th>Date</th>
+                            <th>Date of listed</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,9 +70,8 @@
             </small>
         </div>
         <div class="right">
-            <h2>Latest News</h2> 
+            <h2>Latest News <small style="float: right; font-size: 14px; font-weight: normal;">Last updated at: {{last_updated}}</small></h2> 
             <div class="news">
-                <small>Last updated at: {{last_updated}}</small><br><br>
                 {% for new in news %}
                 <p><strong style="color: #6565c5;">{{ new[2] }}</strong> <br> {{ new[3]|replace('\n', '<br>')|safe }}</p>
                 {% endfor %}
