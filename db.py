@@ -76,7 +76,7 @@ def get_events():
     SELECT symbol, company_name, purpose, broadCastDate
     FROM events
     WHERE broadCastDate > CURDATE()
-    ORDER BY last_updated DESC;
+    ORDER BY broadCastDate ASC;
     """
     cur.execute(query)
     results = cur.fetchall()
