@@ -25,6 +25,17 @@ def bulkdeals():
     results = db.get_quarterly_results()
     return render_template('bulkdeals.html', bulkdeals=bulkdeals, results=results, current_page='bulkdeals')
 
+@app.route('/events')
+def events():
+    events = db.get_events()
+    formatted_events = []
+    for stock in events:
+        stock_list = list(stock)
+        if isinstance(stock_list[3], datetime):
+            stock_list[3] = stock_list[3].strftime('%d %B %Y')
+        formatted_events.append(tuple(stock_list))
+    return render_template('events.html', events=formatted_events, current_page='events')
+
 
 if __name__ == '__main__':
      app.run(host='0.0.0.0', port=8000, debug=True)
