@@ -69,3 +69,17 @@ def calculate_percentage(val_1, val_2):
             return percentage_difference
     return None
 
+def get_events():
+    conn = connect_db()
+    cur = conn.cursor()
+    query = """
+    SELECT symbol, company_name, purpose, broadCastDate
+    FROM events
+    WHERE broadCastDate > CURDATE()
+    ORDER BY last_updated DESC;
+    """
+    cur.execute(query)
+    results = cur.fetchall()
+    cur.close()
+    conn.close()
+    return results
