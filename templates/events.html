@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramesh::Stock Analysis::</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <ul>
+            <li><a href="/" class="{% if current_page == 'home' %}active{% endif %}">Home</a></li>
+            <li><a href="/bulkdeals" class="{% if current_page == 'bulkdeals' %}active{% endif %}">Bulkdeals and Quarterly result</a></li>
+            <li><a href="/events" class="{% if current_page == 'events' %}active{% endif %}">Events</a></li>
+        </ul>
+    </nav>
+    <div class="main-content">
+        <div class="left">
+            <h2>Events</h2> 
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.N</th>
+                            <th>Symbol</th>
+                            <th>Company</th>
+                            <th>Purpose</th>
+                            <th>BroadCast Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for event in events %}
+                        <tr>
+                            <td>{{ loop.index }}.</td>
+                            <td>{{ event[0] }}</td>
+                            <td>{{ event[1] }}</td>
+                            <td>{{ event[2] }}</td>
+                            <td>{{ event[3] }}</td>
+                        </tr>
+                        {% endfor %}
+
+                        {% if not events %}
+                        <tr>
+                            <td colspan="5" style="color: red;"><br><br>No Event found recently.</td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="right">
+            
+        </div>
+    </div>
+</div>
+</body>
+</html>
