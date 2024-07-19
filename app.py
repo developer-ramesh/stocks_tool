@@ -15,8 +15,9 @@ def home():
         if isinstance(stock_list[8], datetime):
             stock_list[8] = stock_list[8].strftime('%d %B %Y, %I:%M %p')
         formatted_stocks.append(tuple(stock_list))
-    
-    last_updated = news[0][4].strftime('%d %B %Y, %I:%M %p')
+    last_updated = ''
+    if(news):
+        last_updated = news[0][4].strftime('%d %B %Y, %I:%M %p')
     return render_template('index.html', stocks=formatted_stocks, news=news, last_updated=last_updated, current_page='home')
 
 @app.route('/bulkdeals')
