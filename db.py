@@ -28,7 +28,7 @@ def connect_db():
 def get_all_stocks():
     conn = connect_db()
     cur = conn.cursor()
-    cur.execute("SELECT company_name, symbol, promoters_holdings, fll, dll, government, public, no_of_shares, last_updated FROM nifty50_stocks WHERE is_visible=true ORDER BY last_updated DESC;")
+    cur.execute("SELECT company_name, symbol, promoters_holdings, fll, dll, government, public, no_of_shares, last_updated, created_dt FROM nifty50_stocks WHERE is_visible=true ORDER BY last_updated DESC;")
     stocks = cur.fetchall()
     cur.close()
     conn.close()
