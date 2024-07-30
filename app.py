@@ -14,6 +14,7 @@ def home():
         stock_list = list(stock)
         if isinstance(stock_list[8], datetime):
             stock_list[8] = stock_list[8].strftime('%d %B %Y, %I:%M %p')
+            stock_list[9] = stock_list[9].strftime('%d %B %Y, %I:%M %p')
         formatted_stocks.append(tuple(stock_list))
     last_updated = ''
     if(news):
