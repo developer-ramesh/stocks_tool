@@ -31,6 +31,7 @@
                             <th>Public</th>
                             <th>No. of Shareholders</th>
                             <th>Date of listed</th>
+                            <th>Updated at</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,6 +45,7 @@
                             <td>{% if stock[5] %} {{ stock[5] }} {% endif %}</td>
                             <td>{{ stock[6] }}%</td>
                             <td>{{ '{:,.0f}'.format(stock[7]) }}</td>
+                            <td>{{ stock[9] }}</td>
                             <td>{{ stock[8] }}</td>
                         </tr>
                         {% endfor %}
